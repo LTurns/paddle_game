@@ -28,6 +28,11 @@ moveRight(){
   // sets it to the positive instead of the negative (because it is going the other way)
 }
 
+stop(){
+  this.speed = 0;
+  // a very simple solution to stop the paddle from moving.
+}
+
 draw(ctx){
   ctx.fillStyle = '#0ff'
   ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -46,7 +51,7 @@ update(deltaTime){
   if(this.position.x < 0) this.position.x = 0;
     // this means that if the position of the paddle moves beyond 0, set it back to 0.
   if(this.position.x + this.width > this.gameWidth)
-  this.position.x = this.gameWidth - this.width
+   this.position.x = this.gameWidth - this.width
   // this is also very clever - gameWidth references the width of the game. This means
   // that if the paddle touches (is the same width as the gameWidth) it will stop going any further - makes it much neater.
 

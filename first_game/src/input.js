@@ -29,11 +29,17 @@ export default class InputHandler {
 
      switch(event.keyCode) {
        case 37:
+       if(paddle.speed < 0)
        paddle.stop();
-       // once again, we will need to create this function in Paddle. 
+       // we need the if statements here to ensure that the paddle is stopping in the route that it is going
+       // this is so the whole thing becomes much smoother.
+       // once again, we will need to create this function in Paddle by putting speed to 0.
        break;
 
        case 39:
+       if(paddle.speed > 0)
+       // we are altering between greater than and less than in left and right because
+       // left refers to -10 and right refers to 10 (remember).
        paddle.stop();
        break;
      }
