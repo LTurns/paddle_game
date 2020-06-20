@@ -1,5 +1,4 @@
-import Paddle from './paddle'
-import InputHandler from './input'
+import Game from './game.js'
 
 let canvas = document.getElementById("gameScreen");
 
@@ -25,12 +24,21 @@ let ctx = canvas.getContext("2d");
 const GAME_WIDTH = 800;
 
 const GAME_HEIGHT = 600;
+let game = new Game(GAME_WIDTH, GAME_HEIGHT);
+game.start();
+
+// THE GAME CLASS ESSENTIALLY DOES EVERYTHING. We create a game object and
+// pass in the game width and height. We then start the game.
+// Then we call the game loop function, which continues the game in motion.
+// Critically, in the game class we are making the other objects that relate to the game (the ball and the paddle eg).
+// We are then putting them into an array and actioning each of them under a forEach
+// method. This is vital because it means that when we have tonnes of objects, it would still be
+// easy to automate the methods - we won't have to manually call it for every single one. 
+
 //to pass into our paddle class (so it knows how big it needs to be when we create it).
 
-let paddle = new Paddle(GAME_WIDTH, GAME_HEIGHT)
-
-new InputHandler(paddle);
 // GAME LOOP
+
 
 let lastTime = 0;
 
@@ -38,9 +46,10 @@ function gameLoop(timestamp){
   let deltaTime = timestamp - lastTime;
   lastTime = timestamp;
 
-  ctx.clearRect(0, 0, 800, 600);
-  paddle.update(deltaTime);
-  paddle.draw(ctx);
+  ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+  game.update(deltaTime);
+  game.draw(ctx);
 
   requestAnimationFrame(gameLoop);
   // this is where the timestamp comes from.Every time this
@@ -50,7 +59,8 @@ function gameLoop(timestamp){
   //
 }
 
-gameLoop();
+requestAnimationFrame(gameLoop);
+// by doing this outside, it means we can get a valid time stamp.
 // calling the gameloop will then make it start - activates the movement and also gets the
 // time stamp going.
 // In sum, our gameloop runs every frame and calculates the time that has passed. It clears the screen, updates the paddle and redraws the paddle.
