@@ -1,6 +1,6 @@
 export default class InputHandler {
 // we use input as a class for all user inputs (including arrows and stopping the game etc)
- constructor(paddle){
+ constructor(paddle, game){
 
    document.addEventListener('keydown', (event) => {
      // alert(event.keyCode);
@@ -17,6 +17,13 @@ export default class InputHandler {
        break;
        // the breaks are essential because it means you can alter your keys -
        // otherwise you could change keys and it won't do anythng on the screen.
+       case 27:
+       game.togglePause();
+       break;
+       // don't need a key-up for escape key because it is not being held down - it uses toggle instead.
+       // come against before - toggle between 2 scenarios, paused and unpaused.
+       // 27 is the escape key.
+
      }
    });
    // this will listen to a keydown event on the arrow keys

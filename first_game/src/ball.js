@@ -6,8 +6,9 @@ export default class Ball {
      // we need to take in gameWidth and gameHeight so we can make sure the ball bounces off the walls of the canvas.
      // This info is now in the game class so we can simply take in the game class as a parameter.
       this.image = document.getElementById("img_ball")
-      this.position = { x: 10, y: 10}
-      this.speed = { x: 4, y: 4};
+      this.position = { x: 10, y: 400}
+      this.speed = { x: 4, y: -2};
+      // the 400 and -2 are here so that the ball starts off at the bottom of the screen instead of the top.
       this.size = 18
       this.gameWidth = game.gameWidth
       this.gameHeight = game.gameHeight

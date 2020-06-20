@@ -5,6 +5,15 @@ import Brick from './brick'
 import { buildLevel, level1 } from './levels'
 // this must be how you import functions directly (not classes)
 
+// This is where we introduce our states:
+// Game states are used to indicate the structure of the game (if it's runnning/paused/over etc).
+const GAMESTATE = {
+  PAUSED: 0,
+  RUNNING: 1,
+  MENU: 2,
+  GAMEOVER: 3
+}
+
 export default class Game {
   // we create the game class so that we are able to instantiate creating the objects and starting the game.
   // it makes it cleaner and is good refactorig.
@@ -15,9 +24,11 @@ export default class Game {
   }
 
    start(){
+  this.gamestate = GAMESTATE.RUNNING;
    this.paddle = new Paddle(this)
    this.ball = new Ball(this);
-   new InputHandler(this.paddle);
+   // this on it's own refers to the class you are in - so this, in this instance, is game.
+   new InputHandler(this.paddle, this);
    // let brick = new Brick(this, {x: 20, y: 20});
    // here we are creating a new brick - we passed the position as a parameter so can simply state the position of the brick here.
    // we no longer have to specify "GAMEHEIGHT AND GAMEWIDTH" because we have specified them at the top/
@@ -33,6 +44,12 @@ export default class Game {
   }
 
   update(deltaTime){
+
+    if(this.gamestate == GAMESTATE.PAUSED) return;
+
+    // return and a semi-colon on its own (like above), essentially means we are returning nothing -
+    // if gamestate is paused - return nothing (don't continue the game).
+
    this.gameObjects.forEach(object => object.update(deltaTime));
    this.gameObjects = this.gameObjects.filter(object => !object.markedForDeletion);
    // this single line is very clever - it essentially means that any objects marked for deletion
@@ -45,10 +62,37 @@ export default class Game {
 
   }
 
+  togglePause(){
+
+    if(this.gamestate == GAMESTATE.PAUSED){
+
+      this.gamestate = GAMESTATE.RUNNING
+      // This is for the toggle effect - if it's paused and you click key 27 again,
+      // it will undo the pause and revert back to running - and vice versa (see below)
+    } else {
+      this.gamestate = GAMESTATE.PAUSED
+    }
+
+  }
+
   draw(ctx){
     // this.paddle.draw(ctx);
     // this.ball.draw(ctx);
     this.gameObjects.forEach(object => object.draw(ctx));
+
+
+    // to make sure the game is paused and not frozen, we can change the canvas colour, like below:
+    if(this.gamestate == GAMESTATE.PAUSED){
+
+    ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+    ctx.fillStyle = "rgba(0,0,0,0.5)";
+    ctx.fill();
+
+     ctx.font = "30px Arial";
+     ctx.fillStyle = "white";
+     ctx.textAlign = "center";
+     ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
   }
+}
 }
 // these methods can now draw and update every object in our world.
