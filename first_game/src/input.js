@@ -23,6 +23,9 @@ export default class InputHandler {
        // don't need a key-up for escape key because it is not being held down - it uses toggle instead.
        // come against before - toggle between 2 scenarios, paused and unpaused.
        // 27 is the escape key.
+       case 32:
+       game.start();
+       break;
 
      }
    });

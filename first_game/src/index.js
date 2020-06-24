@@ -33,7 +33,7 @@ game.start();
 // Critically, in the game class we are making the other objects that relate to the game (the ball and the paddle eg).
 // We are then putting them into an array and actioning each of them under a forEach
 // method. This is vital because it means that when we have tonnes of objects, it would still be
-// easy to automate the methods - we won't have to manually call it for every single one. 
+// easy to automate the methods - we won't have to manually call it for every single one.
 
 //to pass into our paddle class (so it knows how big it needs to be when we create it).
 
