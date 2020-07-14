@@ -27,6 +27,9 @@ export default class InputHandler {
        game.start();
        break;
 
+       default: 
+      //  do nothing
+
      }
    });
    // this will listen to a keydown event on the arrow keys
