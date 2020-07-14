@@ -21,7 +21,7 @@ let ctx = canvas.getContext("2d");
 // ctx.fillStyle = '#0000FF'
 // ctx.fillRect(150, 150, 100, 70);
 
-const GAME_WIDTH = 800;
+const GAME_WIDTH = 1200;
 
 const GAME_HEIGHT = 600;
 let game = new Game(GAME_WIDTH, GAME_HEIGHT);
