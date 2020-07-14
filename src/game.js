@@ -1,7 +1,7 @@
 import Paddle from './paddle'
 import InputHandler from './input'
 import Ball from './ball'
-import Brick from './brick'
+// import Brick from './brick'
 import { buildLevel, level1 } from './levels'
 // this must be how you import functions directly (not classes)
 
@@ -64,7 +64,7 @@ export default class Game {
 
   togglePause(){
 
-    if(this.gamestate == GAMESTATE.PAUSED){
+    if(this.gamestate === GAMESTATE.PAUSED){
 
       this.gamestate = GAMESTATE.RUNNING
       // This is for the toggle effect - if it's paused and you click key 27 again,
@@ -82,7 +82,7 @@ export default class Game {
 
 
     // to make sure the game is paused and not frozen, we can change the canvas colour, like below:
-    if(this.gamestate == GAMESTATE.PAUSED){
+    if(this.gamestate === GAMESTATE.PAUSED){
 
     ctx.rect(0, 0, this.gameWidth, this.gameHeight);
     ctx.fillStyle = "rgba(0,0,0,0.5)";
@@ -94,7 +94,7 @@ export default class Game {
      ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
   }
 
-  if(this.gamestate == GAMESTATE.MENU){
+  if(this.gamestate === GAMESTATE.MENU){
 
     ctx.rect(0, 0, this.gameWidth, this.gameHeight);
     ctx.fillStyle = "rgba(0,0,0,1)";
